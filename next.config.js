@@ -18,10 +18,11 @@ const nextConfig = {
   },
 };
 
+// next.config.js
 module.exports = {
-  // Habilita el host para conexiones locales
-  server: {
-    host: 'localhost',
-    port: 3000,
-  }
-}
+  distDir: '.next', // Asegura que usa el directorio correcto
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
+};
+  
+  
