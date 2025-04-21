@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/app/utils/supabaseClient';
 import { useRouter } from 'next/navigation';
 
 import Panel from '@/app/components/Panel';
@@ -31,10 +30,7 @@ export default function Home() {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push('/login');
-  };
+  
 
   return (
     <div className="flex min-h-screen">
@@ -49,13 +45,7 @@ export default function Home() {
           <button onClick={() => setActiveTab('Marketing')} className="p-2 rounded hover:bg-blue-800 text-left">Marketing</button>
         </div>
 
-        {/* Botón de cerrar sesión */}
-        <button
-          onClick={handleLogout}
-          className="mt-4 p-2 bg-red-600 hover:bg-red-700 rounded text-left"
-        >
-          🔓 Cerrar sesión
-        </button>
+        
       </div>
 
       <main className="flex-1 p-6 bg-gray-100 text-black">
