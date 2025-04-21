@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+
+const path = require('path');
+
+
 const nextConfig = {
   // Configuración esencial para Cloudflare
   output: 'standalone', // ¡Clave para solucionar el error de directorio!
@@ -26,25 +30,24 @@ const nextConfig = {
   experimental: {
     runtime: 'edge',
     serverComponentsExternalPackages: ['mongoose'],
-    esmExternals: 'loose', // Mejor compatibilidad
-    outputFileTracingRoot: path.join(__dirname, '../../'), // Si usas monorepo
+    esmExternals: 'loose',
+    outputFileTracingRoot: path.join(__dirname, '../../'), // Ahora path está definido
   },
 
   // Webpack config (optimizada para edge)
   webpack: (config) => {
-    // Resuelve el fallback para módulos de Node.js
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
       net: false,
       tls: false,
       child_process: false,
-      worker_threads: false
+      worker_threads: false,
+      path: require.resolve('path-browserify') // Añade esto si necesitas 'path' en frontend
     };
     return config;
   },
 };
 
-// Asegúrate de tener 'path' requerido si usas outputFileTracingRoot
-const path = require('path');
+
 module.exports = nextConfig;
